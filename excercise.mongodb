@@ -1,0 +1,422 @@
+// Insert a Single Document
+// Use insertOne() to insert a single document into a collection. Within insertOne(), include
+
+db.grades.insertOne({
+  student_id: 654321,
+  products: [
+    {
+      type: "exam",
+      score: 90,
+    },
+    {
+      type: "homework",
+      score: 59,
+    },
+    {
+      type: "quiz",
+      score: 75,
+    },
+    {
+      type: "homework",
+      score: 88,
+    },
+  ],
+  class_id: 550,
+})
+
+// Insert Multiple Documents
+// Use insertMany() to insert multiple documents at once. Within insertMany(), include the documents within an array. Each document should be separated by a comma. Here's an example:
+
+db.grades.insertMany([
+  {
+    student_id: 546789,
+    products: [
+      {
+        type: "quiz",
+        score: 50,
+      },
+      {
+        type: "homework",
+        score: 70,
+      },
+      {
+        type: "quiz",
+        score: 66,
+      },
+      {
+        type: "exam",
+        score: 70,
+      },
+    ],
+    class_id: 551,
+  },
+  {
+    student_id: 777777,
+    products: [
+      {
+        type: "exam",
+        score: 83,
+      },
+      {
+        type: "quiz",
+        score: 59,
+      },
+      {
+        type: "quiz",
+        score: 72,
+      },
+      {
+        type: "quiz",
+        score: 67,
+      },
+    ],
+    class_id: 550,
+  },
+  {
+    student_id: 223344,
+    products: [
+      {
+        type: "exam",
+        score: 45,
+      },
+      {
+        type: "homework",
+        score: 39,
+      },
+      {
+        type: "quiz",
+        score: 40,
+      },
+      {
+        type: "homework",
+        score: 88,
+      },
+    ],
+    class_id: 551,
+  },
+])
+
+// Find Documents
+// Use find() to query for documents in a collection. Within find(), include a query document
+
+db.grades.find({studeut_id: 547699})
+// output
+[
+  {
+    _id: ObjectId('699ab3920da871b0f17236a2'),
+    studeut_id: 547699,
+    scores: []
+  },
+  {
+    _id: ObjectId('699ab4270da871b0f17236a3'),
+    studeut_id: 547699,
+    scores: [ { type: 'quiz', score: 90 }, { type: 'homework', score: 70 } ]
+  },
+  {
+    _id: ObjectId('699ab4c30da871b0f17236a4'),
+    studeut_id: 547699,
+    scores: [ { type: 'quiz', score: 90 }, { type: 'homework', score: 70 } ]
+  }
+]
+
+// find all documents where the student_id is either 547699 or 534699. Use the $in operator to specify multiple values for a field. Here's an example:
+
+db.grades.find({studeut_id: {$in:[547699,534699]}})
+// output
+[
+  {
+    _id: ObjectId('699ab3920da871b0f17236a2'),
+    studeut_id: 547699,
+    scores: []
+  },
+  {
+    _id: ObjectId('699ab4270da871b0f17236a3'),
+    studeut_id: 547699,
+    scores: [ { type: 'quiz', score: 90 }, { type: 'homework', score: 70 } ]
+  },
+  {
+    _id: ObjectId('699ab4c30da871b0f17236a4'),
+    studeut_id: 547699,
+    scores: [ { type: 'quiz', score: 90 }, { type: 'homework', score: 70 } ]
+  },
+  {
+    _id: ObjectId('699ab4c30da871b0f17236a6'),
+    studeut_id: 534699,
+    scores: [ { type: 'quiz', score: 80 }, { type: 'homework', score: 100 } ]
+  }
+]
+
+// find all documents where the student_id is greater than 547698. Use the $gt operator to specify a value that a field must be greater than. Here's an example:
+
+db.grades.find({studeut_id: {$gt:547698}})
+// output
+[
+  {
+    _id: ObjectId('699ab3920da871b0f17236a2'),
+    studeut_id: 547699,
+    scores: []
+  },
+  {
+    _id: ObjectId('699ab4270da871b0f17236a3'),
+    studeut_id: 547699,
+    scores: [ { type: 'quiz', score: 90 }, { type: 'homework', score: 70 } ]
+  },
+  {
+    _id: ObjectId('699ab4c30da871b0f17236a4'),
+    studeut_id: 547699,
+    scores: [ { type: 'quiz', score: 90 }, { type: 'homework', score: 70 } ]
+  }
+]
+
+// find all documents where the student_id is less than or equal to 547698. Use the $lte operator to specify a value that a field must be less than or equal to. Here's an example:
+
+db.grades.find({studeut_id: {$lt:547698}})
+// output
+[
+  {
+    _id: ObjectId('699ab4c30da871b0f17236a5'),
+    studeut_id: 547688,
+    scores: [ { type: 'quiz', score: 70 }, { type: 'homework', score: 50 } ]
+  },
+  {
+    _id: ObjectId('699ab4c30da871b0f17236a6'),
+    studeut_id: 534699,
+    scores: [ { type: 'quiz', score: 80 }, { type: 'homework', score: 100 } ]
+  }
+]
+
+// find all documents where the student_id is less than or equal to 547698. Use the $lte operator to specify a value that a field must be less than or equal to. Here's an example:
+
+db.grades.find({studeut_id: {$lte:547698}})
+// output
+[
+  {
+    _id: ObjectId('699ab4c30da871b0f17236a5'),
+    studeut_id: 547688,
+    scores: [ { type: 'quiz', score: 70 }, { type: 'homework', score: 50 } ]
+  },
+  {
+    _id: ObjectId('699ab4c30da871b0f17236a6'),
+    studeut_id: 534699,
+    scores: [ { type: 'quiz', score: 80 }, { type: 'homework', score: 100 } ]
+  }
+]
+
+// find all documents where the student_id is greater than or equal to 547698. Use the $gte operator to specify a value that a field must be greater than or equal to. Here's an example:
+
+db.grades.find({studeut_id: {$gte:547698}})
+// output
+[
+  {
+    _id: ObjectId('699ab3920da871b0f17236a2'),
+    studeut_id: 547699,
+    scores: []
+  },
+  {
+    _id: ObjectId('699ab4270da871b0f17236a3'),
+    studeut_id: 547699,
+    scores: [ { type: 'quiz', score: 90 }, { type: 'homework', score: 70 } ]
+  },
+  {
+    _id: ObjectId('699ab4c30da871b0f17236a4'),
+    studeut_id: 547699,
+    scores: [ { type: 'quiz', score: 90 }, { type: 'homework', score: 70 } ]
+  }
+]
+
+// Insert Practice Data
+
+db.players.insertMany([
+  {
+    name: "Karthi",
+    role: "Backend Developer",
+    location: "Chennai",
+   experienceYears: 2,
+  },
+  {
+    name: "Arun",
+    skills: ["Node.js", "MongoDB", "React", "Redis"],
+    projects: [
+      { title: "Ecommerce API", status: "Completed" },
+      { title: "HRMS System", status: "In Progress" }
+    ],
+    certifications: ["MongoDB Associate", "AWS Cloud Practitioner"],
+    salaryOffers: [600000, 850000, 1200000]
+  },
+  {
+    name: "Divya",
+    skills: ["Flutter", "Dart", "SQLite"],
+    experienceYears: 3,
+    preferredLocations: ["Chennai", "Bangalore", "Hyderabad"],
+    previousCompanies: [
+      { company: "TechNova", years: 2 },
+      { company: "InnoSoft", years: 1 }
+    ]
+  }
+])
+
+// Verify Data
+
+db.players.find().pretty()
+
+// Find all players with MongoDB skill
+
+db.players.find({
+  skills: { $elemMatch: { $eq: "MongoDB" } }
+})
+
+// Find all players with a completed project
+
+db.players.find({
+  projects: { $elemMatch: { status: "Completed" } }
+})
+
+// Find all players with a satisfying multiple conditions
+
+db.players.find({ previousCompanies:{ $elemMatch: { years: 2,company: "TechNova" } } })
+
+// Find all players with a satisfying multiple conditions using $and operator
+
+db.players.find({$and:[{name:"Arun",skills:'React'}]});
+// output
+[
+  {
+    _id: ObjectId('699ab99b0da871b0f17236a8'),
+    name: 'Arun',
+    skills: [ 'Node.js', 'MongoDB', 'React', 'Redis' ],
+    projects: [
+      { title: 'Ecommerce API', status: 'Completed' },
+      { title: 'HRMS System', status: 'In Progress' }
+    ],
+    certifications: [ 'MongoDB Associate', 'AWS Cloud Practitioner' ],
+    salaryOffers: [ 600000, 850000, 1200000 ]
+  }
+]
+
+// Find all players with a satisfying multiple conditions using $or operator
+
+db.players.find({$or:[{name:"Arun"},{skills:'Flutter'}]})
+// output
+[
+  {
+    _id: ObjectId('699ab99b0da871b0f17236a8'),
+    name: 'Arun',
+    skills: [ 'Node.js', 'MongoDB', 'React', 'Redis' ],
+    projects: [
+      { title: 'Ecommerce API', status: 'Completed' },
+      { title: 'HRMS System', status: 'In Progress' }
+    ],
+    certifications: [ 'MongoDB Associate', 'AWS Cloud Practitioner' ],
+    salaryOffers: [ 600000, 850000, 1200000 ]
+  },
+  {
+    _id: ObjectId('699ab99b0da871b0f17236a9'),
+    name: 'Divya',
+    skills: [ 'Flutter', 'Dart', 'SQLite' ],
+    experienceYears: 3,
+    preferredLocations: [ 'Chennai', 'Bangalore', 'Hyderabad' ],
+    previousCompanies: [
+      { company: 'TechNova', years: 2 },
+      { company: 'InnoSoft', years: 1 }
+    ]
+  }
+]
+
+// using $and and $or together
+
+db.players.find({$and:[{$or:[{name:"Arun"},{skills:'Flutter'}]},{experienceYears:3}]})
+// output
+[
+  {
+    _id: ObjectId('699ab99b0da871b0f17236a9'),
+    name: 'Divya',
+    skills: [ 'Flutter', 'Dart', 'SQLite' ],
+    experienceYears: 3,
+    preferredLocations: [ 'Chennai', 'Bangalore', 'Hyderabad' ],      
+    previousCompanies: [
+      { company: 'TechNova', years: 2 },
+      { company: 'InnoSoft', years: 1 }
+    ]
+  }
+]
+
+// replaceOne() method is used to replace a single document in a collection. The first parameter of replaceOne() is a query document that specifies the selection criteria for the document to replace. The second parameter is the replacement document that will replace the existing document. Here's an example:
+
+db.players.replaceOne({_id: ObjectId('699ab99b0da871b0f17236a9')},
+  {
+    name: 'Mukesh',
+  skills: [ 'Flutter', 'Dart', 'SQLite' ],
+  experienceYears: 3,
+  preferredLocations: [ 'Chennai', 'Bangalore', 'Hyderabad' ],      
+  certifications:["MongoDB Associate"]
+})
+
+// verification
+
+db.players.find({_id: ObjectId('699ab99b0da871b0f17236a9')})
+
+// updateOne() method is used to update a single document in a collection. The first parameter of updateOne() is a query document that specifies the selection criteria for the document to update. The second parameter is an update document that specifies the modifications to apply to the selected document. Here's an example:
+
+db.players.updateOne({_id: ObjectId('699ab99b0da871b0f17236a9')},
+{$set:{name:"Divya"}})
+
+// verification
+
+db.players.find({_id: ObjectId('699ab99b0da871b0f17236a9')})
+
+// upsert option in updateOne() method is used to insert a new document if no document matches the selection criteria. If a document matches the selection criteria, it will be updated according to the update document. Here's an example:
+
+db.players.updateOne({name:"Divya"},{$set:{name:"Mukesh"}},{upsert:true})
+
+// find the first document matches with name "Mukesh"
+
+db.players.findOne({name:"Mukesh"})
+
+// findAndModify() method is used to find a single document and modify it. The first parameter of findAndModify() is a query document that specifies the selection criteria for the document to find. The second parameter is an update document that specifies the modifications to apply to the selected document. The third parameter is an options document that can include various options such as new, upsert, etc. Here's an example:
+
+db.players.findAndModify({
+  query:{name:"Mukesh"},
+  update:{$set:{name:"Divya"}},
+  upsert:true,
+  new:true}
+)
+
+// updateMany() method is used to update multiple documents in a collection. The first parameter of updateMany() is a query document that specifies the selection criteria for the documents to update. The second parameter is an update document that specifies the modifications to apply to the selected documents. Here's an example:
+
+db.players.updateMany({experienceYears:{$gt:2}},{$set:{name:"Karthi"}})
+
+// deleteOne() method is used to delete a single document from a collection. The parameter of deleteOne() is a query document that specifies the selection criteria for the document to delete. Here's an example:
+
+db.players.deleteOne({name:"Karthi"})
+
+// deleteMany() method is used to delete multiple documents from a collection. The parameter of deleteMany() is a query document that specifies the selection criteria for the documents to delete. Here's an example:
+
+db.players.deleteMany({experienceYears:{$gt:2}})
+
+// sorting documents in ascending order by name
+
+ db.players.find({experienceYears:{$gte:2}}).sort({name:1})
+
+ // sorting documents in descending order by name
+
+ db.players.find({experienceYears:{$gte:2}}).sort({name:-1})
+
+// sort() method like below sort alphabet then first and then small letters you can change the behavior by using options parameter in sort() method.
+db.players.find({ experienceYears: { $gte: 2 } })
+  .collation({ locale: "en", strength: 2 })
+  .sort({ name: 1 })
+
+ // projection in find() method is used to specify which fields to include or exclude in the returned documents. The first parameter of find() is a query document that specifies the selection criteria for the documents to find. The second parameter is a projection document that specifies the fields to include or exclude. Here's an example:
+
+ db.players.find({experienceYears:{$gte:2}},{name:1,experienceYears:1}).sort({name:1})
+
+// not show condition it is used to exclude the fields from the returned documents. To exclude a field, set its value to 0 in the projection document. Here's an example:
+db.players.find({experienceYears:{$gte:2}},{skills:0}).sort({name:1})
+
+// count all documents in the players collection
+
+db.players.countDocuments()
+
+// count documents with some condition
+
+db.players.countDocuments({experienceYears:{$gte:2}})
