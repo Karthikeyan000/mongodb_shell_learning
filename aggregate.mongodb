@@ -1,0 +1,97 @@
+
+// $match + $group + $count
+
+db.players.aggregate([
+  {
+    $match:{
+      experienceYears:{
+        $gte:2
+      }
+    }
+  },{
+    $group:{
+      _id:"$name",
+      experienceYearsTotal:{
+        $count:{}
+      }
+    }
+  }
+])
+
+// pipeline is very import in the Aggregate if any thing the working Machenism is not the same
+
+// sort 
+
+db.players.aggregate(
+    {
+        $sort:{
+            experienceYears:-1
+        }
+    }
+)
+
+// sort with limit
+
+db.players.aggregate(
+    {
+        $sort:{
+            experienceYears:1
+        }
+    },
+    {
+        $limit:3
+    }
+)
+
+// $project is used to select the field that we want to show in the output 1 for include and 0 for exclude
+
+db.players.aggregate(
+    {
+        $project:{
+            name:1,
+            _id:0
+        }
+    }
+)
+
+// $set stage example, $set is just to add additional field in the output
+
+db.players.aggregate(
+    {
+        $set:{
+            experienceYearsInMonths:{
+                $multiply:["$experienceYears",12]
+            }
+        }
+    }
+)
+
+// $count stage example, $count is used to count the number of documents in the output
+
+db.players.aggregate(
+    {
+        $count:"experienceYears"
+    }
+)
+
+// $out example, $out is used to write the output of the aggregation to a collection
+
+db.players.aggregate([
+  {
+    $match:{
+      experienceYears:{
+        $gte:2
+      }
+    }
+  },{
+    $group:{
+      _id:"$name",
+      experienceYearsTotal:{
+        $count:{}
+      }
+    }
+  },
+  {
+    $out:"experienced_candidates"
+  }
+])
